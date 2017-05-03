@@ -28,7 +28,7 @@ class GroupsController < ApplicationController
   # POST /groups.json
   def create
     @group = Group.new(group_params)
-    @group.save
+    @group.user = current_user  
     if @group.save
      redirect_to groups_path
     else

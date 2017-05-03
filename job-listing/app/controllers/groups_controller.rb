@@ -21,7 +21,7 @@ class GroupsController < ApplicationController
 
   # GET /groups/1/edit
   def edit
-    @group = Group.find(params[:id])
+    find_group_and_check_permission
   end
 
   # POST /groups
@@ -39,7 +39,8 @@ class GroupsController < ApplicationController
   # PATCH/PUT /groups/1
   # PATCH/PUT /groups/1.json
   def update
-    @group = Group.find(params[:id])
+    find_group_and_check_permission
+
     if @group.update(group_params)
     redirect_to groups_path, notice: "Update Success"
     else
@@ -50,7 +51,7 @@ class GroupsController < ApplicationController
   # DELETE /groups/1
   # DELETE /groups/1.json
   def destroy
-    @group = Group.find(params[:id])
+    find_group_and_check_permission
     @group.destroy
     redirect_to groups_path, notice: "Update Success"
   end
@@ -66,4 +67,11 @@ class GroupsController < ApplicationController
     def group_params
       params.require(:group).permit(:title, :description)
     end
-  end
+
+    def find_group_and_check_permission
+      @group = Group.find(params[:id])
+      if current_user != @group.user
+        redirect_to root_path, alert: "You have no permission."
+      end
+   end
+end

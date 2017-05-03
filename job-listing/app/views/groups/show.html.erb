@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<!-- <p id="notice"><%= notice %></p>
 
 <p>
   <strong>Title:</strong>
@@ -11,4 +11,12 @@
 </p>
 
 <%= link_to 'Edit', edit_group_path(@group) %> |
-<%= link_to 'Back', groups_path %>
+<%= link_to 'Back', groups_path %> -->
+
+<div class="col-md-12">
+  <div class="group">
+    <%= link_to("Edit", edit_group_path(@group), class: "btn btn-primary pull-right")%>
+  </div>
+  <h2><%= @group.title %></h2>
+  <p><%= @group.description %></p>
+</div>
